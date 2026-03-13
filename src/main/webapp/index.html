@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CurlLite - Universal API Client</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app-shell">
+    <main class="workspace">
+        <section class="workspace-bar">
+            <div class="brand">
+                <h1>CurlLite</h1>
+                <p>Universal API Client</p>
+            </div>
+            <div class="workspace-actions">
+                <select id="workspaceSelect"></select>
+                <button id="newWorkspaceBtn" class="ghost-btn">New Workspace</button>
+                <button id="saveWorkspaceBtn" class="primary-btn">Save Workspace</button>
+            </div>
+        </section>
+
+        <section class="tab-strip-wrap">
+            <div id="requestTabs" class="request-tabs"></div>
+            <button id="addTabBtn" class="ghost-btn">+ New Tab</button>
+        </section>
+
+        <section class="request-bar">
+            <select id="methodSelect">
+                <option>GET</option>
+                <option>POST</option>
+                <option>PUT</option>
+                <option>PATCH</option>
+                <option>DELETE</option>
+                <option>OPTIONS</option>
+                <option>HEAD</option>
+            </select>
+            <input id="urlInput" type="text" placeholder="https://api.example.com/users">
+            <button id="sendBtn" class="primary-btn">Send</button>
+            <button id="importCurlBtn" class="ghost-btn">Import cURL</button>
+        </section>
+
+        <section class="tabs">
+            <div class="tab-actions">
+                <button class="tab active" data-tab="params">Params</button>
+                <button class="tab" data-tab="headers">Headers</button>
+                <button class="tab" data-tab="body">Body</button>
+                <button class="tab" data-tab="auth">Auth</button>
+                <button class="tab" data-tab="code">Code</button>
+            </div>
+
+            <div id="params" class="tab-panel active panel-grid"></div>
+            <div id="headers" class="tab-panel panel-grid"></div>
+            <div id="body" class="tab-panel">
+                <select id="bodyTypeSelect">
+                    <option value="json">JSON</option>
+                    <option value="text">Text</option>
+                    <option value="form">Form Data</option>
+                </select>
+                <textarea id="bodyInput" rows="10" placeholder="{\n  \"name\": \"John\"\n}"></textarea>
+            </div>
+            <div id="auth" class="tab-panel">
+                <label for="bearerTokenInput">Bearer Token</label>
+                <input id="bearerTokenInput" type="text" placeholder="token">
+            </div>
+            <div id="code" class="tab-panel">
+                <div class="code-buttons">
+                    <button id="genCurlBtn" class="ghost-btn">Generate cURL</button>
+                    <button id="genFetchBtn" class="ghost-btn">Generate Fetch</button>
+                </div>
+                <pre id="codeOutput"></pre>
+            </div>
+        </section>
+
+        <section class="response-area">
+            <div class="response-meta">
+                <span id="statusBadge" class="status-pill">Status: -</span>
+                <span id="timeBadge" class="time-pill">Time: - ms</span>
+                <button id="copyResponseBtn" class="ghost-btn">Copy Response</button>
+            </div>
+            <div class="response-toggle">
+                <button id="prettyBtn" class="tab active">Pretty</button>
+                <button id="rawBtn" class="tab">Raw</button>
+            </div>
+            <pre id="responseViewer"></pre>
+        </section>
+    </main>
+</div>
+
+<div id="loadingOverlay" class="loading hidden">Sending request...</div>
+
+<div id="appModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-card">
+        <h3 id="modalTitle">Title</h3>
+        <p id="modalMessage"></p>
+        <textarea id="modalInput" rows="6"></textarea>
+        <div class="modal-actions">
+            <button id="modalCancel" class="ghost-btn">Cancel</button>
+            <button id="modalOk" class="primary-btn">OK</button>
+        </div>
+    </div>
+</div>
+
+<div id="toastContainer" class="toast-container"></div>
+
+<script src="app.js?v=20260313-4"></script>
+</body>
+</html>
